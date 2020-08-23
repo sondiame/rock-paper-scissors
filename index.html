@@ -1,0 +1,104 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style/style.css">
+</head>
+
+<body>
+
+    <div id="scoreboard">
+        <div>You </div>
+        <div><span id='playerScore'>0</span> - <span id='computerScore'>0</span></div>
+        <div>CPU</div>
+    </div>
+    <div id="gameText">
+        Click a Button below
+    </div>
+
+    <div id='buttons'>
+        <button type="button" class="selection" data-key="rock">Rock</button>
+        <button type="button" class="selection" data-key="paper">Paper</button>
+        <button type="button" class="selection" data-key="scissors">Scissors</button>
+    </div>
+
+
+    <script>
+        const shapes = ['rock', 'paper', 'scissors']
+
+        let playerScore = 0,
+            computerScore = 0;
+
+
+        //function to end the game so you can't keep clicking
+        function endgame() {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.disabled = true;
+            })
+
+            const gameText = document.querySelector('#gameText');
+            const endsummary = document.createElement('p');
+
+            if (playerScore > computerScore) {
+                endsummary.textContent = `You won ${playerScore} to ${computerScore}`;;
+            } else {
+                endsummary.textContent = `You lost ${playerScore} to ${computerScore}`;
+            }
+
+            gameText.appendChild(endsummary);
+
+        }
+
+        function updateScores() {
+            document.querySelector('#playerScore').textContent = playerScore;
+            document.querySelector('#computerScore').textContent = computerScore;
+
+            if (playerScore >= 5 || computerScore >= 5) endgame();
+        }
+
+        function computerPlay() {
+            let num = Math.floor(Math.random() * 3);
+
+            return shapes[num];
+        }
+        //e is short for event. use to make an event happen when something is done
+        function playRound(e) {
+            const computerSelection = computerPlay();
+            let playerSelection = this.dataset.key;
+            const resultCode = shapes.indexOf(playerSelection) - shapes.indexOf(computerSelection);
+
+            playerSelection = playerSelection.charAt(0).toUpperCase() + playerSelection.slice(1);
+            const gameText = document.querySelector('#gameText');
+
+            switch (true) {
+                case resultCode == 0:
+                    gameText.textContent = `Draw you both chose ${computerSelection}`;
+                    break;
+
+                case resultCode == -2:
+                case resultCode == 1:
+                    gameText.textContent = `You win ${playerSelection} loses to ${computerSelection}`;
+                    playerScore++;
+                    break;
+                default:
+                    gameText.textContent = `You lose ${playerSelection} lose to ${computerSelection}`;
+                    computerScore++;
+                    break;
+            }
+            updateScores();
+        }
+
+        const selectionButtons = document.querySelectorAll('.selection');
+        selectionButtons.forEach(button => {
+            button.addEventListener('click', playRound);
+        })
+    </script>
+
+</body>
+
+</html>

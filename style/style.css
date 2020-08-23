@@ -1,0 +1,53 @@
+body {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#scoreboard {
+    justify-content: center;
+    display: flex;
+    font-size: 3rem;
+}
+
+#scoreboard div {
+    margin: 1rem;
+}
+
+#gameText {
+    justify-content: center;
+    display: flex;
+    background-color: rgba(100, 165, 105, 0.596);
+    text-align: center;
+    font-size: x-large;
+}
+
+#buttons {
+    display: flex;
+    justify-items: center;
+    box-sizing: content-box;
+    padding-top: 2rem;
+}
+
+.selection {
+    background-color: yellowgreen;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    line-height: 5rem;
+    height: 5rem;
+    width: 10rem;
+    font-size: large;
+    border-radius: 24%;
+    border: solid 1px gray;
+    text-align: center;
+}
+
+.selection:hover {
+    box-shadow: 10px 5px 5px gray;
+}
+
+p {
+    justify-content: center;
+    display: flex;
+    text-align: center;
+    font-size: larger;
+}
